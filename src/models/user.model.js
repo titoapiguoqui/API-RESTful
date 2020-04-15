@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     password: { type: String, required: true }
 });
 
-UserSchema.methods.comparePassword = function(password) {
+UserSchema.methods.comparePasswords = function(password) {
     return compareSync(password, this.password);
 };
 

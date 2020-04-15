@@ -6,7 +6,7 @@ module.exports = function ({ IdeaController }) {
     const router = Router();
 
     router.get('', [ParseIntMiddleware, CacheMiddleware(CacheTime.ONE_HOUR)], IdeaController.getAll);
-    router.get('/:ideaId', IdeaController.get);
+    router.get('/:ideaId', CacheMiddleware(CacheTime.ONE_HOUR), IdeaController.get);
     router.get('/:userId/all', [ParseIntMiddleware, CacheMiddleware(CacheTime.ONE_HOUR)], IdeaController.getUserIdeas);
     router.post('', AuthMiddleware, IdeaController.create);
     router.patch('/:ideaId', AuthMiddleware, IdeaController.update);

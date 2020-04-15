@@ -34,7 +34,8 @@ class CommentController {
 
     async getIdeaComments(req, res) {
         const { ideaId } = req.params;
-        const comments = await _commentService.getIdeaComments(ideaId);
+        const { pageSize, pageNumber } = req.query;
+        const comments = await _commentService.getIdeaComments(ideaId, pageSize, pageNumber);
         return res.send(comments);
     }
 }

@@ -1,12 +1,12 @@
 const { Router } = require('express');
-const { AuthMiddleware } = require('../middlewares');
+const { AuthMiddleware, ParseIntMiddleware } = require('../middlewares');
 
 module.exports = function ({ IdeaController }) {
     const router = Router();
 
-    router.get('', IdeaController.getAll);
+    router.get('', ParseIntMiddleware, IdeaController.getAll);
     router.get('/:ideaId', IdeaController.get);
-    router.get('/:userId/all', IdeaController.getUserIdeas);
+    router.get('/:userId/all', ParseIntMiddleware, IdeaController.getUserIdeas);
     router.post('', AuthMiddleware, IdeaController.create);
     router.patch('/:ideaId', AuthMiddleware, IdeaController.update);
     router.delete('/:ideaId', AuthMiddleware, IdeaController.delete);
